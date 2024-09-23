@@ -71,6 +71,8 @@ class Moshi:
         # we use Opus format for audio across the websocket, as it can be safely streamed and decoded in real-time
         self.opus_stream_outbound = sphn.OpusStreamWriter(self.mimi.sample_rate)
         self.opus_stream_inbound = sphn.OpusStreamReader(self.mimi.sample_rate)
+
+        # LLM is stateful, maintaining chat history, so reset it on each connection
         self.mimi.reset_streaming()
         self.lm_gen.reset_streaming()
 
