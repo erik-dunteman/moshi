@@ -2,7 +2,7 @@
 This is a demo of the Moshi speech-to-speech model by [Kyutai Labs](https://github.com/kyutai-labs/moshi), hosted on [Modal](modal.com) GPUs, with a command line client for talking to it in realtime.
 
 # Serving the Model
-The Moshi model server is a Modal class app, which loads the model into memory and exposes a websocket endpoint for bidirectional streaming.
+The Moshi model server is a Modal [class](https://modal.com/docs/reference/modal.Cls) app, which loads the model into memory and exposes a websocket endpoint for bidirectional streaming.
 
 The Moshi model is stateful, maintaining an internal chat history as it converses with the user, so only one websocket connection can be active at a time. We ensure a 1:1 mapping of clients to servers by using the `allow_concurrent_inputs = 1` flag in the class decorator.
 
