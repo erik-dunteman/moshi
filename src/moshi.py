@@ -7,10 +7,10 @@ app = modal.App("moshi")
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install(
-        "moshi",
-        "huggingface_hub",
-        "hf_transfer",
-        "sphn",
+        "moshi==0.1.0",
+        "huggingface_hub==0.24.7",
+        "hf_transfer==0.1.8",
+        "sphn==0.1.4",
     )
     .env({"HF_HUB_ENABLE_HF_TRANSFER": "1"})
 )
@@ -52,7 +52,7 @@ class Moshi:
             self.moshi,
             # Sampling params
             temp = 0.8,
-            temp_text = 0.7,
+            temp_text = 0.8,
             top_k = 250,
             top_k_text = 25,
         )
