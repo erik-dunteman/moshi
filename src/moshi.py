@@ -48,7 +48,14 @@ class Moshi:
 
         moshi_weight = hf_hub_download(loaders.DEFAULT_REPO, loaders.MOSHI_NAME)
         self.moshi = loaders.get_moshi_lm(moshi_weight, device=self.device)
-        self.lm_gen = LMGen(self.moshi) # can add temp here
+        self.lm_gen = LMGen(
+            self.moshi,
+            # Sampling params
+            temp = 0.8,
+            temp_text = 0.7,
+            top_k = 250,
+            top_k_text = 25,
+        )
 
         self.mimi.streaming_forever(1)
         self.lm_gen.streaming_forever(1)
@@ -162,9 +169,9 @@ class Moshi:
                                 
                                 text_token = tokens[0, 0, 0].item()
                                 if text_token not in (0, 3):
-                                    _text = self.text_tokenizer.id_to_piece(text_token)  # type: ignore
-                                    _text = _text.replace("▁", " ")
-                                    msg = b"\x02" + bytes(_text, encoding="utf8") # prepend "\x02" as a tag to indicate text
+                                    text = self.text_tokenizer.id_to_piece(text_token)
+                                    text = text.replace("▁", " ")
+                                    msg = b"\x02" + bytes(text, encoding="utf8") # prepend "\x02" as a tag to indicate text
                                     await ws.send_bytes(msg)
 
                 async def send_loop():
