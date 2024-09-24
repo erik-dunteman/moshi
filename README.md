@@ -25,7 +25,7 @@ The client is found in `client/client.py`.
 
 Install dev dependencies with:
 ```bash
-pip install -r client/requirements-dev.txt
+pip install -r requirements-dev.txt
 ```
 
 Run the client:
